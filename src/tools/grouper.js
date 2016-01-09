@@ -1,5 +1,3 @@
-import _ from 'underscore';
-
 const NON_WORD_REGEXP = /[^A-Za-z0-9]/g;
 const DEFAULT_RANGES = ['0-9', 'A-B', 'C-D', 'E-F', 'G-H', 'I-J', 'K-L', 'M-N', 'O-P', 'Q-R', 'S-T', 'U-V', 'W-X', 'Y-Z'];
 
