@@ -1,19 +1,6 @@
 const NON_WORD_REGEXP = /[^A-Za-z0-9]/g;
 const DEFAULT_RANGES = ['0-9', 'A-B', 'C-D', 'E-F', 'G-H', 'I-J', 'K-L', 'M-N', 'O-P', 'Q-R', 'S-T', 'U-V', 'W-X', 'Y-Z'];
 
-export function normalizeString(s) {
-    return s.replace(NON_WORD_REGEXP, '').toLowerCase();
-}
-
-export function stringsAreInDescendingOrder(s1, s2, equality=false) {
-    if(equality) return normalizeString(s1) >= normalizeString(s2)
-    return normalizeString(s1) > normalizeString(s2);
-}
-
-export function stringsAreInAscendingOrder(s1, s2, equality=false) {
-    return !stringsAreInDescendingOrder(s1, s2, equality);
-}
-
 export function groupBrandsByRanges(brands, ranges=DEFAULT_RANGES) {
     let rangeBrandsHash = {};
 
@@ -32,6 +19,20 @@ export function addBrandToRangedBrandHash(rangeBrandsHash, brand, ranges=DEFAULT
     if(!rangeBrandsHash[range]) { rangeBrandsHash[range] = []; }
 
     brandFastInsert(rangeBrandsHash[range], brand);
+}
+
+export function normalizeString(s) {
+    return s.replace(NON_WORD_REGEXP, '').toLowerCase();
+}
+
+export function stringsAreInDescendingOrder(s1, s2, equality=false) {
+    if(equality) return normalizeString(s1) >= normalizeString(s2)
+    return normalizeString(s1) > normalizeString(s2);
+}
+
+export function stringsAreInAscendingOrder(s1, s2, equality=false) {
+    if(equality) return normalizeString(s1) <= normalizeString(s2)
+    return normalizeString(s1) < normalizeString(s2);
 }
 
 function getBrandRange(brandName, ranges=DEFAULT_RANGES) {

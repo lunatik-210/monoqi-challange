@@ -2,6 +2,7 @@ import _ from 'underscore';
 
 import { normalizeString,
     stringsAreInDescendingOrder,
+    stringsAreInAscendingOrder,
     addBrandToRangedBrandHash,
     groupBrandsByRanges } from 'tools/grouper';
 
@@ -21,7 +22,7 @@ describe('Test grouper tool', () => {
             const s1 = 'ab';
             const s2 = 'ba';
 
-            expect(stringsAreInDescendingOrder(s1, s2)).to.equal(false);
+            expect(stringsAreInAscendingOrder(s1, s2)).to.equal(true);
             expect(stringsAreInDescendingOrder(s2, s1)).to.equal(true);
         });
 
@@ -29,7 +30,7 @@ describe('Test grouper tool', () => {
             const s1 = 'ab';
             const s2 = '.ba';
 
-            expect(stringsAreInDescendingOrder(s1, s2)).to.equal(false);
+            expect(stringsAreInAscendingOrder(s1, s2)).to.equal(true);
             expect(stringsAreInDescendingOrder(s2, s1)).to.equal(true);
         });
 
@@ -38,20 +39,23 @@ describe('Test grouper tool', () => {
             const s2 = 'Ba';
 
             expect(stringsAreInDescendingOrder(s1, s2)).to.equal(false);
-            expect(stringsAreInDescendingOrder(s2, s1)).to.equal(true);
+            expect(stringsAreInAscendingOrder(s2, s1)).to.equal(false);
         });
 
         it('Comparation with numbers: ab should be greater than 1Ba', () => {
             const s1 = 'ab';
             const s2 = '1Ba';
 
-            expect(stringsAreInDescendingOrder(s1, s2)).to.equal(true);
+            expect(stringsAreInAscendingOrder(s1, s2)).to.equal(false);
             expect(stringsAreInDescendingOrder(s2, s1)).to.equal(false);
         });
 
         it('Comparation with equality flag = true: ab should be equal ab', () => {
             const s1 = 'ab';
             const s2 = 'ab';
+
+            expect(stringsAreInAscendingOrder(s1, s2)).to.equal(false);
+            expect(stringsAreInAscendingOrder(s1, s2, true)).to.equal(true);
 
             expect(stringsAreInDescendingOrder(s1, s2)).to.equal(false);
             expect(stringsAreInDescendingOrder(s1, s2, true)).to.equal(true);
