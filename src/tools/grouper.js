@@ -32,7 +32,7 @@ export function addBrandToRangedBrandHash(rangeBrandsHash, brand, ranges=DEFAULT
     brandFastInsert(rangeBrandsHash[range], brand);
 }
 
-export function getBrandRange(brandName, ranges=DEFAULT_RANGES) {
+function getBrandRange(brandName, ranges=DEFAULT_RANGES) {
     const normalizedName = normalizeString(brandName);
 
     if(normalizedName.length === 0) { return undefined };
@@ -51,7 +51,7 @@ export function getBrandRange(brandName, ranges=DEFAULT_RANGES) {
     return undefined;
 }
 
-export function brandFastInsert(brands, brand) {
+function brandFastInsert(brands, brand) {
     if(brands.length === 0) {
         brands.push(brand);
         return;
@@ -69,7 +69,7 @@ export function brandFastInsert(brands, brand) {
     _brandFastInsert(brands, brand, 0, brands.length);
 }
 
-export function _brandFastInsert(brands, brand, l, r) {
+function _brandFastInsert(brands, brand, l, r) {
     const middle = (l+r) >> 1;
     const brandName = brand.brand_copy[0].brand_name;
 

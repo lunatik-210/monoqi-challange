@@ -1,7 +1,9 @@
-import brands from 'assets/brands.json';
 import _ from 'underscore';
 
-import { normalizeString, stringsAreInAscendingOrder, groupBy, addBrandToRangedBrandHash, groupBrandsByRanges } from 'tools/grouper';
+import { normalizeString,
+    stringsAreInAscendingOrder,
+    addBrandToRangedBrandHash,
+    groupBrandsByRanges } from 'tools/grouper';
 
 describe('Test grouper tool', () => {
     describe('String normalizer', () => {
