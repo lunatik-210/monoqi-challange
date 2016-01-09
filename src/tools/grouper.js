@@ -7,9 +7,13 @@ export function normalizeString(s) {
     return s.replace(NON_WORD_REGEXP, '').toLowerCase();
 }
 
-export function stringsAreInAscendingOrder(s1, s2, equality=false) {
+export function stringsAreInDescendingOrder(s1, s2, equality=false) {
     if(equality) return normalizeString(s1) >= normalizeString(s2)
     return normalizeString(s1) > normalizeString(s2);
+}
+
+export function stringsAreInAscendingOrder(s1, s2, equality=false) {
+    return !stringsAreInDescendingOrder(s1, s2, equality);
 }
 
 export function groupBrandsByRanges(brands, ranges=DEFAULT_RANGES) {
@@ -51,55 +55,39 @@ function getBrandRange(brandName, ranges=DEFAULT_RANGES) {
     return undefined;
 }
 
-function brandFastInsert(brands, brand) {
+// here i'm using binary insertion algorithm with slight modification
+// http://machinesaredigging.com/2014/04/27/binary-insert-how-to-keep-an-array-sorted-as-you-insert-data-in-it/
+function brandFastInsert(brands, brand, left, right) {
+    const length = brands.length;
+    const l = typeof(left) !== 'undefined' ? left : 0;
+    const r = typeof(right) !== 'undefined' ? right : length - 1;
+    const m = (l+r) >> 1;
+    const brandName = brand.brand_copy[0].brand_name;
+
     if(brands.length === 0) {
         brands.push(brand);
         return;
     }
 
-    if(brands.length === 1) {
-        if(stringsAreInAscendingOrder(brand.brand_copy[0].brand_name, brands[0].brand_copy[0].brand_name, true)) {
-            brands.push(brand);
-        } else {
-            brands.splice(0, 0, brand);
-        }
+    if(stringsAreInDescendingOrder(brandName, brands[r].brand_copy[0].brand_name, true)) {
+        brands.splice(r+1, 0, brand);
         return;
     }
 
-    _brandFastInsert(brands, brand, 0, brands.length);
-}
-
-function _brandFastInsert(brands, brand, l, r) {
-    const middle = (l+r) >> 1;
-    const brandName = brand.brand_copy[0].brand_name;
-
-    if(middle === 0 && stringsAreInAscendingOrder(brands[0].brand_copy[0].brand_name, brandName, true)) {
-        brands.splice(0, 0, brand);
+    if(stringsAreInAscendingOrder(brandName, brands[l].brand_copy[0].brand_name, true)) {
+        brands.splice(l, 0, brand);
         return;
     }
 
-    if(middle === brands.length-1 && !stringsAreInAscendingOrder(brands[brands.length-1].brand_copy[0].brand_name, brandName, true)) {
-        brands.push(brand);
+    if(l >= r) { return; }
+
+    if(stringsAreInAscendingOrder(brandName, brands[m].brand_copy[0].brand_name, true)){
+        brandFastInsert(brands, brand, l, m - 1);
         return;
     }
 
-    if(middle !== 0 && !stringsAreInAscendingOrder(brands[middle-1].brand_copy[0].brand_name, brandName, true) && 
-       stringsAreInAscendingOrder(brands[middle].brand_copy[0].brand_name, brandName, true)) {
-        brands.splice(middle, 0, brand);
+    if(stringsAreInDescendingOrder(brandName, brands[m].brand_copy[0].brand_name, true)){
+        brandFastInsert(brands, brand, m + 1, r);
         return;
-    }
-
-    if(middle !== brands.length-1 && !stringsAreInAscendingOrder(brands[middle].brand_copy[0].brand_name, brandName, true) && 
-       stringsAreInAscendingOrder(brands[middle+1].brand_copy[0].brand_name, brandName, true)) {
-        brands.splice(middle+1, 0, brand);
-        return;
-    }
-    
-    if(stringsAreInAscendingOrder(brands[middle-1].brand_copy[0].brand_name, brandName)) {
-        return _brandFastInsert(brands, brand, l, middle-1);
-    }
-
-    if(!stringsAreInAscendingOrder(brands[middle+1].brand_copy[0].brand_name, brandName)) {
-        return _brandFastInsert(brands, brand, middle+1, r);
     }
 }

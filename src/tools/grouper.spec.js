@@ -1,7 +1,7 @@
 import _ from 'underscore';
 
 import { normalizeString,
-    stringsAreInAscendingOrder,
+    stringsAreInDescendingOrder,
     addBrandToRangedBrandHash,
     groupBrandsByRanges } from 'tools/grouper';
 
@@ -16,45 +16,45 @@ describe('Test grouper tool', () => {
         });
     });
 
-    describe('String ascending order comparator', () => {
+    describe('String descending order comparator', () => {
         it('Simple comparation: ab should be less than ba', () => {
             const s1 = 'ab';
             const s2 = 'ba';
 
-            expect(stringsAreInAscendingOrder(s1, s2)).to.equal(false);
-            expect(stringsAreInAscendingOrder(s2, s1)).to.equal(true);
+            expect(stringsAreInDescendingOrder(s1, s2)).to.equal(false);
+            expect(stringsAreInDescendingOrder(s2, s1)).to.equal(true);
         });
 
         it('Comparation with symblos: ab should be less than .ba', () => {
             const s1 = 'ab';
             const s2 = '.ba';
 
-            expect(stringsAreInAscendingOrder(s1, s2)).to.equal(false);
-            expect(stringsAreInAscendingOrder(s2, s1)).to.equal(true);
+            expect(stringsAreInDescendingOrder(s1, s2)).to.equal(false);
+            expect(stringsAreInDescendingOrder(s2, s1)).to.equal(true);
         });
 
         it('Comparation with uppercase letters: ab should be less than Ba', () => {
             const s1 = 'ab';
             const s2 = 'Ba';
 
-            expect(stringsAreInAscendingOrder(s1, s2)).to.equal(false);
-            expect(stringsAreInAscendingOrder(s2, s1)).to.equal(true);
+            expect(stringsAreInDescendingOrder(s1, s2)).to.equal(false);
+            expect(stringsAreInDescendingOrder(s2, s1)).to.equal(true);
         });
 
         it('Comparation with numbers: ab should be greater than 1Ba', () => {
             const s1 = 'ab';
             const s2 = '1Ba';
 
-            expect(stringsAreInAscendingOrder(s1, s2)).to.equal(true);
-            expect(stringsAreInAscendingOrder(s2, s1)).to.equal(false);
+            expect(stringsAreInDescendingOrder(s1, s2)).to.equal(true);
+            expect(stringsAreInDescendingOrder(s2, s1)).to.equal(false);
         });
 
         it('Comparation with equality flag = true: ab should be equal ab', () => {
             const s1 = 'ab';
             const s2 = 'ab';
 
-            expect(stringsAreInAscendingOrder(s1, s2)).to.equal(false);
-            expect(stringsAreInAscendingOrder(s1, s2, true)).to.equal(true);
+            expect(stringsAreInDescendingOrder(s1, s2)).to.equal(false);
+            expect(stringsAreInDescendingOrder(s1, s2, true)).to.equal(true);
         });
     });
 
@@ -164,6 +164,5 @@ describe('Test grouper tool', () => {
 
             expect(_.isEqual(rangedBrandHash, rangedBrandsResult)).to.equal(true);
         });
-
     });
 });
