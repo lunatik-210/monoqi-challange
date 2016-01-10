@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { DEFAULT_RANGES } from 'tools/grouper';
-import { BrandSearch } from 'tools/search';
 
 import styles from 'components/content/content.scss'
 
