@@ -5,7 +5,9 @@ import styles from 'components/navbar/navbar.scss'
 export default class Navbar extends React.Component {
   render() {
     return (
-      <div>Header</div>
+      <div className={styles['b-navbar']}>
+        <span>Header</span>
+      </div>
     );
   }
 }
