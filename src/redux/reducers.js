@@ -3,6 +3,7 @@ import _ from 'underscore'
 import { TRIGGER_BRAND_RANGE,
   CHANGE_SEARCH_QUERY
 } from 'redux/actions'
+import { BrandSearch } from 'tools/search'
 
 function triggerBrandRange (state, action) {
   switch (action.type) {
@@ -27,11 +28,16 @@ export default function reducer (state, action) {
       }
 
     case CHANGE_SEARCH_QUERY:
+      let brandSearch = new BrandSearch()
+      const results = brandSearch.search(state.index, action.query)
+      brandSearch = null
+
       return {
         ...state,
         searchProperties: {
           ...state.searchProperties,
-          query: action.query
+          query: action.query,
+          results: results
         }
       }
 

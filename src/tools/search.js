@@ -33,7 +33,7 @@ export class BrandSearch {
       this.addBrandToIndex(ngramsIndex, brand)
     }
 
-    return ngramsIndex;
+    return ngramsIndex
   }
 
   addBrandToIndex (index, brand) {
@@ -93,7 +93,7 @@ export class BrandSearch {
   _assignScoreToResults (results, normalizedQuery) {
     for (let i = 0; i < results.length; ++i) {
       results[i].score = this._distance(normalizedQuery, results[i].name)
-    }    
+    }
   }
 
   // https://github.com/Glench/fuzzyset.js/blob/master/lib/fuzzyset.js#L41

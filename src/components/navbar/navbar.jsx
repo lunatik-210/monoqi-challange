@@ -1,4 +1,5 @@
 import React from 'react'
+import _ from 'underscore'
 
 import styles from 'components/navbar/navbar.scss'
 
@@ -20,6 +21,7 @@ export default class Navbar extends React.Component {
               <span>CURRENTLY SELECTED</span>
               <span>__________________</span>
               <span>BRANDS MATCHING YOUR SEARCH</span>
+              {_.map(this.props.searchProperties.results, this.renderBrand)}
               <span>__________________</span>
               <button>APPLY SELECTION</button>
             </div>
@@ -27,6 +29,10 @@ export default class Navbar extends React.Component {
         </div>
       </div>
     )
+  }
+
+  renderBrand(brand) {
+    return <span>{brand.brand_copy[0].brand_name}</span>
   }
 
   onQueryChange (e) {
