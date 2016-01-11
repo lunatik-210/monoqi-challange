@@ -17,7 +17,8 @@ describe('Search tool', () => {
     expect(results.length).to.equal(0)
 
     results = brandSearch.search(index, 'asd')
-    expect(results.length).to.equal(6)
+    expect(results.length).to.equal(1)
+    expect(results[0].brand_copy[0].brand_name).to.equal('*81asdas3')
 
     results = brandSearch.search(index, '91')
     expect(results.length).to.equal(1)

@@ -65,6 +65,7 @@ export class BrandSearch {
 
     this._assignScoreToResults(results, normalizedQuery)
 
+    results = _.uniq(results, (index) => index.brand.brand_id)
     results = _.sortBy(results, (index) => -index.score)
     results = _.map(results, (index) => index.brand)
 
