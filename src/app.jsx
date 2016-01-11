@@ -14,8 +14,8 @@ import 'styles/global.scss'
 function createState() {
   const groupedBrands = _.map(groupBrandsByRanges(brands.collection_results), (brands, range) => { 
     return {
-      brands: brands.collection_results, 
-      name: range, 
+      brands: brands,
+      name: range,
       isExpanded: false
     }
   })

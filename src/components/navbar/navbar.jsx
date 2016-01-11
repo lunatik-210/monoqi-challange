@@ -11,17 +11,21 @@ export default class Navbar extends React.Component {
   }
 
   render () {
+    const popupStyles = {
+      display: this.props.searchProperties.isExpanded ? 'block' : 'none'
+    }
+
     return (
       <div className={styles['b-navbar']}>
         <div className={styles['b-brand-search-panel']}>
-          <button className={styles['e-search-button']}>BRAND \/</button>
-          <div className={styles['b-search-pop-up']}>
+          <button onClick={this.props.actions.triggerSearchPanel} className={styles['e-search-button']}>BRAND \/</button>
+          <div style={popupStyles} className={styles['b-search-pop-up']}>
             <div className={styles['b-search-pop-up-content']}>
               <input className={styles['e-search-input']} value={this.props.searchProperties.query} onChange={this.onQueryChange} type="text"/>
               <span>CURRENTLY SELECTED</span>
               <span>__________________</span>
               <span>BRANDS MATCHING YOUR SEARCH</span>
-              {_.map(this.props.searchProperties.results, this.renderBrand)}
+                {_.map(this.props.searchProperties.results, this.renderBrand)}
               <span>__________________</span>
               <button>APPLY SELECTION</button>
             </div>

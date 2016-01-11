@@ -1,7 +1,8 @@
 import _ from 'underscore'
 
 import { TRIGGER_BRAND_RANGE,
-  CHANGE_SEARCH_QUERY
+  CHANGE_SEARCH_QUERY,
+  TRIGGER_SEARCH_PANEL
 } from 'redux/actions'
 import { BrandSearch } from 'tools/search'
 
@@ -25,6 +26,15 @@ export default function reducer (state, action) {
       return {
         ...state,
         groupedBrands: _.map(state.groupedBrands, range => triggerBrandRange(range, action))
+      }
+
+    case TRIGGER_SEARCH_PANEL:
+      return {
+        ...state,
+        searchProperties: {
+          ...state.searchProperties,
+          isExpanded: !state.searchProperties.isExpanded
+        }
       }
 
     case CHANGE_SEARCH_QUERY:
