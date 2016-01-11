@@ -9,19 +9,21 @@ describe('Search tool', () => {
   }
 
   it('BrandSearch should retrive results on search queries', () => {
-    let brandSearch = new BrandSearch(brands);
+    let brandSearch = new BrandSearch()
 
-    let results = brandSearch.search('')
+    let index = brandSearch.buildIndex(brands)
+
+    let results = brandSearch.search(index, '')
     expect(results.length).to.equal(0)
 
-    results = brandSearch.search('asd')
+    results = brandSearch.search(index, 'asd')
     expect(results.length).to.equal(6)
 
-    results = brandSearch.search('91')
+    results = brandSearch.search(index, '91')
     expect(results.length).to.equal(1)
     expect(results[0].brand_copy[0].brand_name).to.equal('*91asdas3')
 
-    results = brandSearch.search('--')
+    results = brandSearch.search(index, '--')
     expect(results.length).to.equal(1)
     expect(results[0].brand_copy[0].brand_name).to.equal('*-- 21asdas3')
   })

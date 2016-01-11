@@ -14,12 +14,10 @@ import _ from 'underscore'
 */
 
 export class BrandSearch {
-  constructor (brands, gramSizeLower = 1, gramSizeUpper = 3, resultLimit = 10) {
+  constructor (gramSizeLower = 1, gramSizeUpper = 3, resultLimit = 10) {
     this.gramSizeLower = gramSizeLower
     this.gramSizeUpper = gramSizeUpper
     this.resultLimit = resultLimit
-
-    this.ngramsIndex = this.buildIndex(brands)
   }
 
   buildIndex (brands) {
@@ -60,10 +58,10 @@ export class BrandSearch {
     }
   }
 
-  search (query, resultLimit) {
+  search (ngramsIndex, query, resultLimit) {
     let normalizedQuery = query.toLowerCase()
 
-    let results = this._reverseIndexLookup(normalizedQuery)
+    let results = this._reverseIndexLookup(ngramsIndex, normalizedQuery)
 
     this._assignScoreToResults(results, normalizedQuery)
 
@@ -73,7 +71,7 @@ export class BrandSearch {
     return results.slice(0, resultLimit || this.resultLimit)
   }
 
-  _reverseIndexLookup (normalizedQuery) {
+  _reverseIndexLookup (ngramsIndex, normalizedQuery) {
     let results = []
 
     // falls down to lower grams once there are no results found
@@ -81,8 +79,8 @@ export class BrandSearch {
       let queryGrams = nGram(gramSize)(normalizedQuery)
 
       for (let gram of queryGrams) {
-        if (this.ngramsIndex[gramSize][gram] && this.ngramsIndex[gramSize][gram].length !== 0) {
-          results = results.concat(this.ngramsIndex[gramSize][gram])
+        if (ngramsIndex[gramSize][gram] && ngramsIndex[gramSize][gram].length !== 0) {
+          results = results.concat(ngramsIndex[gramSize][gram])
         }
       }
 
