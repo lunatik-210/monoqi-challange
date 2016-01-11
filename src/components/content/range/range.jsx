@@ -14,7 +14,7 @@ export default class Range extends React.Component {
     return <span className={styles['b-rnage']} onClick={this.triggerRange}>{rangeName}</span>
   }
 
-  triggerRange(name, e) {
-    console.log(name)
+  triggerRange(rangeName, e) {
+    this.props.onClick(rangeName)
   }
 }

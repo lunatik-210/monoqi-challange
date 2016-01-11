@@ -2,30 +2,33 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
+import { triggerBrandRange } from 'redux/actions'
 import Navbar from 'components/navbar/navbar'
 import Content from 'components/content/content'
 
 import styles from 'components/root.scss'
 
-export default class Root extends React.Component {
-  render() {
+class Root extends React.Component {
+  render () {
     return (
       <div className={styles['b-root']}>
         <Navbar />
-        <Content />
+        <Content actions={this.props.actions} groupedBrands={this.props.groupedBrands} />
       </div>
-    );
+    )
   }
 }
 
-var mapStateToProps = function (state) {
-  return state;
-}
-
-var mapDispatchToProps = function (dispatch) {
+function mapStateToProps (state) {
   return {
-    actions: bindActionCreators({}, dispatch)
+    groupedBrands: state.groupedBrands
   }
 }
 
-connect(mapStateToProps, mapDispatchToProps)(Root)
+function mapDispatchToProps (dispatch) {
+  return {
+    actions: bindActionCreators({triggerBrandRange}, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Root)
