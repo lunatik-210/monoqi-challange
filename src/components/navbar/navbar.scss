@@ -5,8 +5,40 @@
 // #AA8A39
 // #AA4D39
 
+$navbar-height: 40px;
+
 .b-navbar {
   width: 100%;
-  height: 40px;
+  height: $navbar-height;
   background: #27586B;
+
+  .b-brand-search-panel {
+    position: relative;
+    height: 100%;
+    width: 300px;
+    float: right;
+
+    .e-search-button {
+      height: 100%;
+      width: 100%;
+    }
+
+    .b-search-pop-up {
+      position: absolute;
+      width: 100%;
+      background: #FF8080;
+      top: $navbar-height;
+
+      .b-search-pop-up-content {
+        margin: 4px;
+
+        .e-search-input {
+          height: 30px;
+          width: 292px - 4px;
+          font-size: 20px;
+        }
+
+      }
+    }
+  }
 }
