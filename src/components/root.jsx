@@ -12,7 +12,7 @@ class Root extends React.Component {
   render () {
     return (
       <div className={styles['b-root']}>
-        <Navbar actions={this.props.actions} searchProperties={this.props.searchProperties} />
+        <Navbar actions={this.props.actions} selectedBrands={this.props.selectedBrands} searchProperties={this.props.searchProperties} />
         <Content actions={this.props.actions} groupedBrands={this.props.groupedBrands} />
       </div>
     )
@@ -21,6 +21,7 @@ class Root extends React.Component {
 
 function mapStateToProps (state) {
   return {
+    selectedBrands: state.selectedBrands,
     groupedBrands: state.groupedBrands,
     searchProperties: state.searchProperties
   }

@@ -38,6 +38,15 @@ $navbar-height: 40px;
           font-size: 20px;
         }
 
+        .b-search-pop-up-brand {
+          white-space: nowrap;
+        }
+
+        .b-search-pop-up-brand input,
+        .b-search-pop-up-brand span {
+          display: inline-block;
+        }
+
       }
     }
   }

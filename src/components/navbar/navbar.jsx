@@ -8,6 +8,9 @@ export default class Navbar extends React.Component {
     super(props)
 
     this.onQueryChange = this.onQueryChange.bind(this)
+    this.renderBrand = this.renderBrand.bind(this)
+    this.renderSelectedBrands = this.renderSelectedBrands.bind(this)
+    this.renderDeSelectedBrands = this.renderDeSelectedBrands.bind(this)
   }
 
   render () {
@@ -23,11 +26,12 @@ export default class Navbar extends React.Component {
             <div className={styles['b-search-pop-up-content']}>
               <input className={styles['e-search-input']} value={this.props.searchProperties.query} onChange={this.onQueryChange} type="text"/>
               <span>CURRENTLY SELECTED</span>
+                {_.map(this.props.selectedBrands, this.renderDeSelectedBrands)}
               <span>__________________</span>
               <span>BRANDS MATCHING YOUR SEARCH</span>
-                {_.map(this.props.searchProperties.results, this.renderBrand)}
+                {_.map(this.props.searchProperties.results, this.renderSelectedBrands)}
               <span>__________________</span>
-              <button>APPLY SELECTION</button>
+              <button onClick={this.props.actions.triggerSearchPanel}>APPLY SELECTION</button>
             </div>
           </div>
         </div>
@@ -35,8 +39,26 @@ export default class Navbar extends React.Component {
     )
   }
 
-  renderBrand(brand) {
-    return <span>{brand.brand_copy[0].brand_name}</span>
+  renderSelectedBrands (brand) {
+    return this.renderBrand(brand, true)
+  }
+
+  renderDeSelectedBrands (brand) {
+    return this.renderBrand(brand, false)
+  }
+
+  renderBrand (brand, checked) {
+    let triggerBrand = () => {
+      let callback = checked ? this.props.actions.selectBrand : this.props.actions.deselectBrand
+      callback(brand)
+    }
+
+    return (
+      <div className={styles['b-search-pop-up-brand']}>
+        <input checked={!checked} type="checkbox" onChange={triggerBrand} />
+        <span>{brand.brand_copy[0].brand_name}</span>
+      </div>
+    )
   }
 
   onQueryChange (e) {
