@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { triggerBrandRange } from 'redux/actions'
+import actions from 'redux/actions'
 import Navbar from 'components/navbar/navbar'
 import Content from 'components/content/content'
 
@@ -12,7 +12,7 @@ class Root extends React.Component {
   render () {
     return (
       <div className={styles['b-root']}>
-        <Navbar />
+        <Navbar actions={this.props.actions} searchProperties={this.props.searchProperties} />
         <Content actions={this.props.actions} groupedBrands={this.props.groupedBrands} />
       </div>
     )
@@ -21,13 +21,14 @@ class Root extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    groupedBrands: state.groupedBrands
+    groupedBrands: state.groupedBrands,
+    searchProperties: state.searchProperties
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators({triggerBrandRange}, dispatch)
+    actions: bindActionCreators(actions, dispatch)
   }
 }
 

@@ -21,7 +21,12 @@ function createState() {
 
   return {
     brands: brands.collection_results,
-    groupedBrands: _.sortBy(groupedBrands, range => range.name[0])
+    groupedBrands: _.sortBy(groupedBrands, range => range.name[0]),
+    searchProperties: {
+      isExpanded: false,
+      query: "",
+      results: []
+    }
   }
 }
 
