@@ -18,20 +18,40 @@ export default class Navbar extends React.Component {
       display: this.props.searchProperties.isExpanded ? 'block' : 'none'
     }
 
+    const indicatorStyles = {
+      display: this.props.selectedBrands.length ? 'block' : 'none'
+    }
+
+    const searchButtonStyles = {
+      background: this.props.searchProperties.isExpanded ? '#C2C2C2' : '#DDDDDD'
+    }
+
+    const searchStyles = {
+      display: this.props.searchProperties.results.length ? 'block' : 'none'
+    }
+
     return (
       <div className={styles['b-navbar']}>
         <div className={styles['b-brand-search-panel']}>
-          <button onClick={this.props.actions.triggerSearchPanel} className={styles['e-search-button']}>BRAND \/</button>
+          <div className={styles['e-search-button']}>
+            <div style={indicatorStyles} className={styles['e-search-indicator']}>{this.props.selectedBrands.length}</div>
+            <button style={searchButtonStyles} onClick={this.props.actions.triggerSearchPanel}>BRAND \/</button>
+          </div>
           <div style={popupStyles} className={styles['b-search-pop-up']}>
             <div className={styles['b-search-pop-up-content']}>
-              <input className={styles['e-search-input']} value={this.props.searchProperties.query} onChange={this.onQueryChange} type="text"/>
-              <span>CURRENTLY SELECTED</span>
+              <div className={styles['b-search']}>
+                <div className={styles['e-search-label']}>
+                  <span>SEARCH</span>
+                </div>
+                <input className={styles['e-search-input']} value={this.props.searchProperties.query} onChange={this.onQueryChange} type="text"/>
+              </div>
+              <span style={indicatorStyles}>CURRENTLY SELECTED</span>
                 {_.map(this.props.selectedBrands, this.renderDeSelectedBrands)}
-              <span>__________________</span>
-              <span>BRANDS MATCHING YOUR SEARCH</span>
+              <div style={indicatorStyles} className={styles['e-separator']} />
+              <span style={searchStyles}>BRANDS MATCHING YOUR SEARCH</span>
                 {_.map(this.props.searchProperties.results, this.renderSelectedBrands)}
-              <span>__________________</span>
-              <button onClick={this.props.actions.triggerSearchPanel}>APPLY SELECTION</button>
+              <div style={searchStyles} className={styles['e-separator']} />
+              <button className={styles['e-apply-button']} onClick={this.props.actions.triggerSearchPanel}>APPLY SELECTION</button>
             </div>
           </div>
         </div>

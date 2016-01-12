@@ -1,53 +1,136 @@
 
-// http://paletton.com/#uid=33q0u0kldlp3UQ8c7uxuhckOi3G
-
-// #27586B
-// #AA8A39
-// #AA4D39
-
-$navbar-height: 40px;
-
 .b-navbar {
   width: 100%;
-  height: $navbar-height;
-  background: #27586B;
+  height: 40px;
+  background: #D1D1D1;
 
   .b-brand-search-panel {
     position: relative;
     height: 100%;
-    width: 300px;
+    width: 350px;
     float: right;
-
+  
     .e-search-button {
+      position: relative;
       height: 100%;
       width: 100%;
+
+      .e-search-indicator {
+        position: absolute;
+        z-index: 11;
+        right: 10px;
+        top: 8px;
+
+        border-radius: 50%;
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background: #fff;
+        color: #666;
+        text-align: center;
+        cursor: default;
+      }
+    }
+    
+    .e-search-button button {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      border-radius: 4px 4px 0px 0px;
+      border: 1px solid #C2C2C2;
+      outline: none;
+      z-index: 10;
+      cursor: pointer;
+      color: #464646;
     }
 
     .b-search-pop-up {
       position: absolute;
-      width: 100%;
-      background: #FF8080;
-      top: $navbar-height;
+      border: 4px solid #C2C2C2;
+      border-radius: 0px 0px 4px 4px;
+      padding: 4px 8px;
+      width: 326px;
+      background: white;
+      top: 40px;
+      color: grey;
 
       .b-search-pop-up-content {
         margin: 4px;
 
-        .e-search-input {
+        .e-separator {
+          height: 4px;
+          width: 100%;
+          background: #C3C3C3;
+          margin: 3px 0px;
+        }
+
+        .e-apply-button {
+          background: black;
+          color: #CFCFCF;
+          outline: none;
+          border: none;
+          border-radius: 4px 4px 4px 4px;
+          width: 180px;
           height: 30px;
-          width: 292px - 4px;
-          font-size: 20px;
+          font-size: 18px;
+          cursor: pointer;
+          float: right;
+          margin: 5px 0px;
+        }
+
+        .b-search {
+          border: 1px solid #D1D1D1;
+          border-radius: 4px 4px 4px 4px;
+
+          .e-search-label,
+          .e-search-input {
+            display: inline-block;
+            border: none;
+            vertical-align: top;
+          }
+
+          .e-search-label {
+            height: 30px;
+            width: 73px;
+            background: #EEEEEE;
+            border-right: 1px solid #D1D1D1;
+          }
+
+          .e-search-label span {
+            line-height: 30px;
+            text-align: center;
+            cursor: default;
+          }
+
+          .e-search-input {
+            height: 30px;
+            width: 206px;
+            padding-left: 10px;
+            font-size: 18px;
+            color: grey;
+          }
         }
 
         .b-search-pop-up-brand {
-          white-space: nowrap;
+          height: auto;
         }
 
         .b-search-pop-up-brand input,
         .b-search-pop-up-brand span {
-          display: inline-block;
+          display: inline;
+          font-weight: bold;
+          color: #6B6B6B !important;
         }
 
+        .b-search-pop-up-brand input {
+          margin-right: 6px;
+        }
       }
+    }
+
+    .b-search-pop-up-content span {
+      line-height: 25px;
+      cursor: default;
     }
   }
 }
