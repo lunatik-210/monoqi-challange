@@ -74,7 +74,7 @@ export default class Navbar extends React.Component {
     }
 
     return (
-      <div className={styles['b-search-pop-up-brand']}>
+      <div key={brand.brand_id} className={styles['b-search-pop-up-brand']}>
         <input checked={!checked} type="checkbox" onChange={triggerBrand} />
         <span>{brand.brand_copy[0].brand_name}</span>
       </div>
