@@ -1,4 +1,10 @@
 
 .b-rnage {
   cursor: pointer;
+  padding: 10px;
+  border-bottom: 2px solid #C3C3C3;
+}
+
+.b-rnage:hover {
+  background: #EEEEEE !important;
 }

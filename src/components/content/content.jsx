@@ -27,7 +27,7 @@ export default class Content extends React.Component {
 
     return (
       <div key={range.name}>
-        <Range onClick={this.props.actions.triggerBrandRange} name={range.name} />
+        <Range onClick={this.props.actions.triggerBrandRange} name={range.name} isExpanded={range.isExpanded} />
         <div style={brandsStyles}>
           <Brands brands={range.brands} />
         </div>
