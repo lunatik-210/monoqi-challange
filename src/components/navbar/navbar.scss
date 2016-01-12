@@ -4,6 +4,15 @@
   height: 40px;
   background: #D1D1D1;
 
+  .b-github {
+    height: 100%;
+    float: left;
+    font-size: 30px;
+    margin-left: 8px;
+    margin-top: 3px;
+    cursor: pointer;
+  }
+
   .b-brand-search-panel {
     position: relative;
     height: 100%;

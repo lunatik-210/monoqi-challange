@@ -32,6 +32,7 @@ export default class Navbar extends React.Component {
 
     return (
       <div className={styles['b-navbar']}>
+        <a href="https://github.com/lunatik-210/monoqi-challange"><span className={styles['b-github']}>GitHub</span></a>
         <div className={styles['b-brand-search-panel']}>
           <div className={styles['e-search-button']}>
             <div style={indicatorStyles} className={styles['e-search-indicator']}>{this.props.selectedBrands.length}</div>
