@@ -31,55 +31,74 @@ function triggerBrandRange (state, action) {
   }
 }
 
+function selectBrand (state, action) {
+  if (_.find(state.selectedBrands, brand => brand.brand_id === action.brand.brand_id)) { return state }
+  return {
+    ...state,
+    selectedBrands: [action.brand, ...state.selectedBrands],
+    searchProperties: {
+      ...state.searchProperties,
+      results: _.filter(state.searchProperties.results, brand => brand.brand_id !== action.brand.brand_id)
+    }
+  }
+}
+
+function deselectBrand (state, action) {
+  const selectedBrands = _.filter(state.selectedBrands, brand => brand.brand_id !== action.brand.brand_id)
+  return {
+    ...state,
+    selectedBrands: selectedBrands,
+    searchProperties: {
+      ...state.searchProperties,
+      results: searchBrands(state.index, selectedBrands, state.searchProperties.query)
+    }
+  }
+}
+
+function triggerBrand (state, action) {
+  return {
+    ...state,
+    groupedBrands: _.map(state.groupedBrands, range => triggerBrandRange(range, action))
+  }
+}
+
+function triggerSearchPanel (state, action) {
+  return {
+    ...state,
+    searchProperties: {
+      ...state.searchProperties,
+      isExpanded: !state.searchProperties.isExpanded
+    }
+  }
+}
+
+function changeSearchQuery (state, action) {
+  return {
+    ...state,
+    searchProperties: {
+      ...state.searchProperties,
+      query: action.query,
+      results: searchBrands(state.index, state.selectedBrands, action.query)
+    }
+  }
+}
+
 export default function reducer (state, action) {
   switch (action.type) {
-
     case SELECT_BRAND:
-      if (_.find(state.selectedBrands, brand => brand.brand_id === action.brand.brand_id)) { return state }
-      return {
-        ...state,
-        selectedBrands: [action.brand, ...state.selectedBrands],
-        searchProperties: {
-          ...state.searchProperties,
-          results: _.filter(state.searchProperties.results, brand => brand.brand_id !== action.brand.brand_id)
-        }
-      }
+      return selectBrand(state, action)
 
     case DESELECT_BRAND:
-      const selectedBrands = _.filter(state.selectedBrands, brand => brand.brand_id !== action.brand.brand_id)
-      return {
-        ...state,
-        selectedBrands: selectedBrands,
-        searchProperties: {
-          ...state.searchProperties,
-          results: searchBrands(state.index, selectedBrands, state.searchProperties.query)
-        }
-      }
+      return deselectBrand(state, action)
 
     case TRIGGER_BRAND_RANGE:
-      return {
-        ...state,
-        groupedBrands: _.map(state.groupedBrands, range => triggerBrandRange(range, action))
-      }
+      return triggerBrand(state, action)
 
     case TRIGGER_SEARCH_PANEL:
-      return {
-        ...state,
-        searchProperties: {
-          ...state.searchProperties,
-          isExpanded: !state.searchProperties.isExpanded
-        }
-      }
+      return triggerSearchPanel(state, action)
 
     case CHANGE_SEARCH_QUERY:
-      return {
-        ...state,
-        searchProperties: {
-          ...state.searchProperties,
-          query: action.query,
-          results: searchBrands(state.index, state.selectedBrands, action.query)
-        }
-      }
+      return changeSearchQuery(state, action)
 
     default:
       return state
