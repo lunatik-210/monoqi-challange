@@ -1,4 +1,4 @@
-* `npm install
+* npm install
 
 * `npm start` - Spins up Koa server to serve your app at `localhost:3000`. HMR will be enabled in development.
 * `npm run test` - Runs unit tests with Karma and generates a coverage report.
